@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="e726b4d3913d4a9aadedbec7b6d67a3f" Name="Diagram1">
+        <EntityTypeShape EntityType="venta_onlineModel.caracteristicas" Width="1.5" PointX="9" PointY="20.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="venta_onlineModel.categorias" Width="1.5" PointX="0.75" PointY="4.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="venta_onlineModel.conexiones" Width="1.5" PointX="8.25" PointY="11.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="venta_onlineModel.marcas" Width="1.5" PointX="6" PointY="4.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="venta_onlineModel.multimedia" Width="1.5" PointX="12" PointY="23" IsExpanded="true" />
+        <EntityTypeShape EntityType="venta_onlineModel.paises" Width="1.5" PointX="0.75" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="venta_onlineModel.perfiles" Width="1.5" PointX="3" PointY="9" IsExpanded="true" />
+        <EntityTypeShape EntityType="venta_onlineModel.productos" Width="1.5" PointX="8.75" PointY="2.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="venta_onlineModel.productos_caracteristicas" Width="1.5" PointX="11.25" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="venta_onlineModel.productos_categorias" Width="1.5" PointX="11.25" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="venta_onlineModel.productos_multimedia" Width="1.5" PointX="14.25" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="venta_onlineModel.productos_vendedores" Width="1.5" PointX="11.25" PointY="7.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="venta_onlineModel.telefonos" Width="1.5" PointX="3" PointY="11.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="venta_onlineModel.tiposAccion" Width="1.5" PointX="6" PointY="16" IsExpanded="true" />
+        <EntityTypeShape EntityType="venta_onlineModel.tiposMultimedia" Width="1.5" PointX="9.75" PointY="23.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="venta_onlineModel.usuarios" Width="1.5" PointX="6" PointY="11.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="venta_onlineModel.valoracionesProducto" Width="1.5" PointX="11.25" PointY="11.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="venta_onlineModel.valoracionesVendedor" Width="1.5" PointX="8.25" PointY="7.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="venta_onlineModel.vendedores" Width="1.5" PointX="5.125" PointY="7.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="venta_onlineModel.acciones" Width="1.5" PointX="8.25" PointY="15.5" IsExpanded="true" />
+        <AssociationConnector Association="venta_onlineModel.fk_productos_caracteristicas_caracteristitcas" ManuallyRouted="false" />
+        <AssociationConnector Association="venta_onlineModel.fk_categorias_categorias" ManuallyRouted="false" />
+        <AssociationConnector Association="venta_onlineModel.fk_productos_categorias_categorias" ManuallyRouted="false" />
+        <AssociationConnector Association="venta_onlineModel.fk_conexiones_usuarios" ManuallyRouted="false" />
+        <AssociationConnector Association="venta_onlineModel.fk_productos_marcas" ManuallyRouted="false" />
+        <AssociationConnector Association="venta_onlineModel.fk_multimedia_tiposMultimedia" ManuallyRouted="false" />
+        <AssociationConnector Association="venta_onlineModel.fk_productos_multimedia_multimedia" ManuallyRouted="false" />
+        <AssociationConnector Association="venta_onlineModel.fk_telefonos_paises" ManuallyRouted="false" />
+        <AssociationConnector Association="venta_onlineModel.fk_usuarios_paises" ManuallyRouted="false" />
+        <AssociationConnector Association="venta_onlineModel.fk_usuarios_perfiles" ManuallyRouted="false" />
+        <AssociationConnector Association="venta_onlineModel.fk_acciones_producto" ManuallyRouted="false" />
+        <AssociationConnector Association="venta_onlineModel.fk_productos_caracteristicas_productos" ManuallyRouted="false" />
+        <AssociationConnector Association="venta_onlineModel.fk_productos_categorias_productos" ManuallyRouted="false" />
+        <AssociationConnector Association="venta_onlineModel.fk_productos_multimedia_productos" ManuallyRouted="false" />
+        <AssociationConnector Association="venta_onlineModel.fk_productos_vendedores_productos" ManuallyRouted="false" />
+        <AssociationConnector Association="venta_onlineModel.fk_valoracionesProducto_productos" ManuallyRouted="false" />
+        <AssociationConnector Association="venta_onlineModel.fk_productos_vendedores_vendedores" ManuallyRouted="false" />
+        <AssociationConnector Association="venta_onlineModel.fk_telefonos_usuarios" ManuallyRouted="false" />
+        <AssociationConnector Association="venta_onlineModel.fk_acciones_tipoAcciones" ManuallyRouted="false" />
+        <AssociationConnector Association="venta_onlineModel.fk_acciones_usuarios" ManuallyRouted="false" />
+        <AssociationConnector Association="venta_onlineModel.fk_valoracionesProducto_usuarios" ManuallyRouted="false" />
+        <AssociationConnector Association="venta_onlineModel.fk_valoracionesVendedor_usuarios" ManuallyRouted="false" />
+        <AssociationConnector Association="venta_onlineModel.fk_valoracionesVendedor_vendedores" ManuallyRouted="false" />
+        <AssociationConnector Association="venta_onlineModel.fk_acciones_vendedor" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

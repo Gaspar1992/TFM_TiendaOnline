@@ -1,0 +1,1523 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="venta_onlineModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'venta_online.dbo.acciones' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <EntityType Name="acciones">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="tipoAccion" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="tipoAccion" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="usuario" Type="int" />
+          <Property Name="producto" Type="int" />
+          <Property Name="vendedor" Type="int" />
+          <Property Name="informacion" Type="text" />
+        </EntityType>
+        <EntityType Name="caracteristicas">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="categorias">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="descripcion" Type="text" />
+          <Property Name="categoriaPadre" Type="int" />
+        </EntityType>
+        <EntityType Name="conexiones">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="usuario" Type="int" Nullable="false" />
+          <Property Name="dispositivo" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="sistema" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="version" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="fecha" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="activa" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="marcas">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="web" Type="varchar" MaxLength="255" />
+          <Property Name="logo" Type="varchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="multimedia">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="descripcion" Type="text" />
+          <Property Name="fichero" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="tipo" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="paises">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="iso2" Type="varchar" MaxLength="2" Nullable="false" />
+          <Property Name="iso3" Type="varchar" MaxLength="3" Nullable="false" />
+          <Property Name="prefijo" Type="varchar" MaxLength="5" Nullable="false" />
+        </EntityType>
+        <EntityType Name="perfiles">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="descripcion" Type="text" />
+        </EntityType>
+        <EntityType Name="productos">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="descripcion" Type="text" />
+          <Property Name="marca" Type="int" />
+        </EntityType>
+        <EntityType Name="productos_caracteristicas">
+          <Key>
+            <PropertyRef Name="producto" />
+            <PropertyRef Name="caracteristica" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="producto" Type="int" Nullable="false" />
+          <Property Name="caracteristica" Type="int" Nullable="false" />
+          <Property Name="valor" Type="text" Nullable="false" />
+          <Property Name="referencia" Type="varchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="productos_categorias">
+          <Key>
+            <PropertyRef Name="producto" />
+            <PropertyRef Name="categoria" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="producto" Type="int" Nullable="false" />
+          <Property Name="categoria" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="productos_multimedia">
+          <Key>
+            <PropertyRef Name="producto" />
+            <PropertyRef Name="multimedia" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="producto" Type="int" Nullable="false" />
+          <Property Name="multimedia" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="productos_vendedores">
+          <Key>
+            <PropertyRef Name="producto" />
+            <PropertyRef Name="vendedor" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="producto" Type="int" Nullable="false" />
+          <Property Name="vendedor" Type="int" Nullable="false" />
+          <Property Name="precio" Type="float" Nullable="false" />
+          <Property Name="enlaceCanonical" Type="text" Nullable="false" />
+        </EntityType>
+        <EntityType Name="telefonos">
+          <Key>
+            <PropertyRef Name="usuario" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="usuario" Type="int" Nullable="false" />
+          <Property Name="pais" Type="int" Nullable="false" />
+          <Property Name="telefono" Type="varchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tiposAccion">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="descripcion" Type="text" />
+        </EntityType>
+        <EntityType Name="tiposMultimedia">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="formato" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="usuarios">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="email" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="apellidos" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="constrasenya" Type="text" Nullable="false" />
+          <Property Name="perfil" Type="int" Nullable="false" />
+          <Property Name="paisOrigen" Type="int" />
+        </EntityType>
+        <EntityType Name="valoracionesProducto">
+          <Key>
+            <PropertyRef Name="producto" />
+            <PropertyRef Name="usuario" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="producto" Type="int" Nullable="false" />
+          <Property Name="usuario" Type="int" Nullable="false" />
+          <Property Name="titulo" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="descripcion" Type="text" Nullable="false" />
+          <Property Name="puntuacion" Type="int" />
+          <Property Name="validado" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="valoracionesVendedor">
+          <Key>
+            <PropertyRef Name="vendedor" />
+            <PropertyRef Name="usuario" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="vendedor" Type="int" Nullable="false" />
+          <Property Name="usuario" Type="int" Nullable="false" />
+          <Property Name="titulo" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="descripcion" Type="text" Nullable="false" />
+          <Property Name="puntuacion" Type="int" />
+          <Property Name="validado" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="vendedores">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="descripcion" Type="text" />
+          <Property Name="logo" Type="varchar" MaxLength="255" />
+          <Property Name="web" Type="varchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <Association Name="fk_acciones_producto">
+          <End Role="productos" Type="Self.productos" Multiplicity="0..1" />
+          <End Role="acciones" Type="Self.acciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="productos">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="acciones">
+              <PropertyRef Name="producto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_acciones_tipoAcciones">
+          <End Role="tiposAccion" Type="Self.tiposAccion" Multiplicity="1" />
+          <End Role="acciones" Type="Self.acciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tiposAccion">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="acciones">
+              <PropertyRef Name="tipoAccion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_acciones_usuarios">
+          <End Role="usuarios" Type="Self.usuarios" Multiplicity="0..1" />
+          <End Role="acciones" Type="Self.acciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="usuarios">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="acciones">
+              <PropertyRef Name="usuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_acciones_vendedor">
+          <End Role="vendedores" Type="Self.vendedores" Multiplicity="0..1" />
+          <End Role="acciones" Type="Self.acciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="vendedores">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="acciones">
+              <PropertyRef Name="vendedor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_categorias_categorias">
+          <End Role="categorias" Type="Self.categorias" Multiplicity="0..1" />
+          <End Role="categorias1" Type="Self.categorias" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="categorias">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="categorias1">
+              <PropertyRef Name="categoriaPadre" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_conexiones_usuarios">
+          <End Role="usuarios" Type="Self.usuarios" Multiplicity="1" />
+          <End Role="conexiones" Type="Self.conexiones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="usuarios">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="conexiones">
+              <PropertyRef Name="usuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_multimedia_tiposMultimedia">
+          <End Role="tiposMultimedia" Type="Self.tiposMultimedia" Multiplicity="1" />
+          <End Role="multimedia" Type="Self.multimedia" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tiposMultimedia">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="multimedia">
+              <PropertyRef Name="tipo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_productos_caracteristicas_caracteristitcas">
+          <End Role="caracteristicas" Type="Self.caracteristicas" Multiplicity="1" />
+          <End Role="productos_caracteristicas" Type="Self.productos_caracteristicas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="caracteristicas">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="productos_caracteristicas">
+              <PropertyRef Name="caracteristica" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_productos_caracteristicas_productos">
+          <End Role="productos" Type="Self.productos" Multiplicity="1" />
+          <End Role="productos_caracteristicas" Type="Self.productos_caracteristicas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="productos">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="productos_caracteristicas">
+              <PropertyRef Name="producto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_productos_categorias_categorias">
+          <End Role="categorias" Type="Self.categorias" Multiplicity="1" />
+          <End Role="productos_categorias" Type="Self.productos_categorias" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="categorias">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="productos_categorias">
+              <PropertyRef Name="categoria" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_productos_categorias_productos">
+          <End Role="productos" Type="Self.productos" Multiplicity="1" />
+          <End Role="productos_categorias" Type="Self.productos_categorias" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="productos">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="productos_categorias">
+              <PropertyRef Name="producto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_productos_marcas">
+          <End Role="marcas" Type="Self.marcas" Multiplicity="0..1" />
+          <End Role="productos" Type="Self.productos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="marcas">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="productos">
+              <PropertyRef Name="marca" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_productos_multimedia_multimedia">
+          <End Role="multimedia" Type="Self.multimedia" Multiplicity="1" />
+          <End Role="productos_multimedia" Type="Self.productos_multimedia" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="multimedia">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="productos_multimedia">
+              <PropertyRef Name="multimedia" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_productos_multimedia_productos">
+          <End Role="productos" Type="Self.productos" Multiplicity="1" />
+          <End Role="productos_multimedia" Type="Self.productos_multimedia" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="productos">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="productos_multimedia">
+              <PropertyRef Name="producto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_productos_vendedores_productos">
+          <End Role="productos" Type="Self.productos" Multiplicity="1" />
+          <End Role="productos_vendedores" Type="Self.productos_vendedores" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="productos">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="productos_vendedores">
+              <PropertyRef Name="producto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_productos_vendedores_vendedores">
+          <End Role="vendedores" Type="Self.vendedores" Multiplicity="1" />
+          <End Role="productos_vendedores" Type="Self.productos_vendedores" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="vendedores">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="productos_vendedores">
+              <PropertyRef Name="vendedor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_telefonos_paises">
+          <End Role="paises" Type="Self.paises" Multiplicity="1" />
+          <End Role="telefonos" Type="Self.telefonos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="paises">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="telefonos">
+              <PropertyRef Name="pais" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_telefonos_usuarios">
+          <End Role="usuarios" Type="Self.usuarios" Multiplicity="1" />
+          <End Role="telefonos" Type="Self.telefonos" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="usuarios">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="telefonos">
+              <PropertyRef Name="usuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_usuarios_paises">
+          <End Role="paises" Type="Self.paises" Multiplicity="0..1" />
+          <End Role="usuarios" Type="Self.usuarios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="paises">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="usuarios">
+              <PropertyRef Name="paisOrigen" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_usuarios_perfiles">
+          <End Role="perfiles" Type="Self.perfiles" Multiplicity="1" />
+          <End Role="usuarios" Type="Self.usuarios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="perfiles">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="usuarios">
+              <PropertyRef Name="perfil" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_valoracionesProducto_productos">
+          <End Role="productos" Type="Self.productos" Multiplicity="1" />
+          <End Role="valoracionesProducto" Type="Self.valoracionesProducto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="productos">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="valoracionesProducto">
+              <PropertyRef Name="producto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_valoracionesProducto_usuarios">
+          <End Role="usuarios" Type="Self.usuarios" Multiplicity="1" />
+          <End Role="valoracionesProducto" Type="Self.valoracionesProducto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="usuarios">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="valoracionesProducto">
+              <PropertyRef Name="usuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_valoracionesVendedor_usuarios">
+          <End Role="usuarios" Type="Self.usuarios" Multiplicity="1" />
+          <End Role="valoracionesVendedor" Type="Self.valoracionesVendedor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="usuarios">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="valoracionesVendedor">
+              <PropertyRef Name="usuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_valoracionesVendedor_vendedores">
+          <End Role="vendedores" Type="Self.vendedores" Multiplicity="1" />
+          <End Role="valoracionesVendedor" Type="Self.valoracionesVendedor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="vendedores">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="valoracionesVendedor">
+              <PropertyRef Name="vendedor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="venta_onlineModelStoreContainer">
+          <EntitySet Name="caracteristicas" EntityType="Self.caracteristicas" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="categorias" EntityType="Self.categorias" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="conexiones" EntityType="Self.conexiones" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="marcas" EntityType="Self.marcas" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="multimedia" EntityType="Self.multimedia" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="paises" EntityType="Self.paises" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="perfiles" EntityType="Self.perfiles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="productos" EntityType="Self.productos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="productos_caracteristicas" EntityType="Self.productos_caracteristicas" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="productos_categorias" EntityType="Self.productos_categorias" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="productos_multimedia" EntityType="Self.productos_multimedia" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="productos_vendedores" EntityType="Self.productos_vendedores" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="telefonos" EntityType="Self.telefonos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tiposAccion" EntityType="Self.tiposAccion" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tiposMultimedia" EntityType="Self.tiposMultimedia" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="usuarios" EntityType="Self.usuarios" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="valoracionesProducto" EntityType="Self.valoracionesProducto" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="valoracionesVendedor" EntityType="Self.valoracionesVendedor" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="vendedores" EntityType="Self.vendedores" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="acciones" EntityType="Self.acciones" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [acciones].[id] AS [id], 
+    [acciones].[tipoAccion] AS [tipoAccion], 
+    [acciones].[usuario] AS [usuario], 
+    [acciones].[producto] AS [producto], 
+    [acciones].[vendedor] AS [vendedor], 
+    [acciones].[informacion] AS [informacion]
+    FROM [dbo].[acciones] AS [acciones]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="fk_acciones_producto" Association="Self.fk_acciones_producto">
+            <End Role="productos" EntitySet="productos" />
+            <End Role="acciones" EntitySet="acciones" />
+          </AssociationSet>
+          <AssociationSet Name="fk_acciones_tipoAcciones" Association="Self.fk_acciones_tipoAcciones">
+            <End Role="tiposAccion" EntitySet="tiposAccion" />
+            <End Role="acciones" EntitySet="acciones" />
+          </AssociationSet>
+          <AssociationSet Name="fk_acciones_usuarios" Association="Self.fk_acciones_usuarios">
+            <End Role="usuarios" EntitySet="usuarios" />
+            <End Role="acciones" EntitySet="acciones" />
+          </AssociationSet>
+          <AssociationSet Name="fk_acciones_vendedor" Association="Self.fk_acciones_vendedor">
+            <End Role="vendedores" EntitySet="vendedores" />
+            <End Role="acciones" EntitySet="acciones" />
+          </AssociationSet>
+          <AssociationSet Name="fk_categorias_categorias" Association="Self.fk_categorias_categorias">
+            <End Role="categorias" EntitySet="categorias" />
+            <End Role="categorias1" EntitySet="categorias" />
+          </AssociationSet>
+          <AssociationSet Name="fk_conexiones_usuarios" Association="Self.fk_conexiones_usuarios">
+            <End Role="usuarios" EntitySet="usuarios" />
+            <End Role="conexiones" EntitySet="conexiones" />
+          </AssociationSet>
+          <AssociationSet Name="fk_multimedia_tiposMultimedia" Association="Self.fk_multimedia_tiposMultimedia">
+            <End Role="tiposMultimedia" EntitySet="tiposMultimedia" />
+            <End Role="multimedia" EntitySet="multimedia" />
+          </AssociationSet>
+          <AssociationSet Name="fk_productos_caracteristicas_caracteristitcas" Association="Self.fk_productos_caracteristicas_caracteristitcas">
+            <End Role="caracteristicas" EntitySet="caracteristicas" />
+            <End Role="productos_caracteristicas" EntitySet="productos_caracteristicas" />
+          </AssociationSet>
+          <AssociationSet Name="fk_productos_caracteristicas_productos" Association="Self.fk_productos_caracteristicas_productos">
+            <End Role="productos" EntitySet="productos" />
+            <End Role="productos_caracteristicas" EntitySet="productos_caracteristicas" />
+          </AssociationSet>
+          <AssociationSet Name="fk_productos_categorias_categorias" Association="Self.fk_productos_categorias_categorias">
+            <End Role="categorias" EntitySet="categorias" />
+            <End Role="productos_categorias" EntitySet="productos_categorias" />
+          </AssociationSet>
+          <AssociationSet Name="fk_productos_categorias_productos" Association="Self.fk_productos_categorias_productos">
+            <End Role="productos" EntitySet="productos" />
+            <End Role="productos_categorias" EntitySet="productos_categorias" />
+          </AssociationSet>
+          <AssociationSet Name="fk_productos_marcas" Association="Self.fk_productos_marcas">
+            <End Role="marcas" EntitySet="marcas" />
+            <End Role="productos" EntitySet="productos" />
+          </AssociationSet>
+          <AssociationSet Name="fk_productos_multimedia_multimedia" Association="Self.fk_productos_multimedia_multimedia">
+            <End Role="multimedia" EntitySet="multimedia" />
+            <End Role="productos_multimedia" EntitySet="productos_multimedia" />
+          </AssociationSet>
+          <AssociationSet Name="fk_productos_multimedia_productos" Association="Self.fk_productos_multimedia_productos">
+            <End Role="productos" EntitySet="productos" />
+            <End Role="productos_multimedia" EntitySet="productos_multimedia" />
+          </AssociationSet>
+          <AssociationSet Name="fk_productos_vendedores_productos" Association="Self.fk_productos_vendedores_productos">
+            <End Role="productos" EntitySet="productos" />
+            <End Role="productos_vendedores" EntitySet="productos_vendedores" />
+          </AssociationSet>
+          <AssociationSet Name="fk_productos_vendedores_vendedores" Association="Self.fk_productos_vendedores_vendedores">
+            <End Role="vendedores" EntitySet="vendedores" />
+            <End Role="productos_vendedores" EntitySet="productos_vendedores" />
+          </AssociationSet>
+          <AssociationSet Name="fk_telefonos_paises" Association="Self.fk_telefonos_paises">
+            <End Role="paises" EntitySet="paises" />
+            <End Role="telefonos" EntitySet="telefonos" />
+          </AssociationSet>
+          <AssociationSet Name="fk_telefonos_usuarios" Association="Self.fk_telefonos_usuarios">
+            <End Role="usuarios" EntitySet="usuarios" />
+            <End Role="telefonos" EntitySet="telefonos" />
+          </AssociationSet>
+          <AssociationSet Name="fk_usuarios_paises" Association="Self.fk_usuarios_paises">
+            <End Role="paises" EntitySet="paises" />
+            <End Role="usuarios" EntitySet="usuarios" />
+          </AssociationSet>
+          <AssociationSet Name="fk_usuarios_perfiles" Association="Self.fk_usuarios_perfiles">
+            <End Role="perfiles" EntitySet="perfiles" />
+            <End Role="usuarios" EntitySet="usuarios" />
+          </AssociationSet>
+          <AssociationSet Name="fk_valoracionesProducto_productos" Association="Self.fk_valoracionesProducto_productos">
+            <End Role="productos" EntitySet="productos" />
+            <End Role="valoracionesProducto" EntitySet="valoracionesProducto" />
+          </AssociationSet>
+          <AssociationSet Name="fk_valoracionesProducto_usuarios" Association="Self.fk_valoracionesProducto_usuarios">
+            <End Role="usuarios" EntitySet="usuarios" />
+            <End Role="valoracionesProducto" EntitySet="valoracionesProducto" />
+          </AssociationSet>
+          <AssociationSet Name="fk_valoracionesVendedor_usuarios" Association="Self.fk_valoracionesVendedor_usuarios">
+            <End Role="usuarios" EntitySet="usuarios" />
+            <End Role="valoracionesVendedor" EntitySet="valoracionesVendedor" />
+          </AssociationSet>
+          <AssociationSet Name="fk_valoracionesVendedor_vendedores" Association="Self.fk_valoracionesVendedor_vendedores">
+            <End Role="vendedores" EntitySet="vendedores" />
+            <End Role="valoracionesVendedor" EntitySet="valoracionesVendedor" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="venta_onlineModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="caracteristicas">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="productos_caracteristicas" Relationship="Self.fk_productos_caracteristicas_caracteristitcas" FromRole="caracteristicas" ToRole="productos_caracteristicas" />
+        </EntityType>
+        <EntityType Name="categorias">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="descripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="categoriaPadre" Type="Int32" />
+          <NavigationProperty Name="categorias1" Relationship="Self.fk_categorias_categorias" FromRole="categorias" ToRole="categorias1" />
+          <NavigationProperty Name="categorias2" Relationship="Self.fk_categorias_categorias" FromRole="categorias1" ToRole="categorias" />
+          <NavigationProperty Name="productos_categorias" Relationship="Self.fk_productos_categorias_categorias" FromRole="categorias" ToRole="productos_categorias" />
+        </EntityType>
+        <EntityType Name="conexiones">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="usuario" Type="Int32" Nullable="false" />
+          <Property Name="dispositivo" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="sistema" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="version" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="fecha" Type="Binary" MaxLength="8" FixedLength="true" Nullable="false" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="activa" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="usuarios" Relationship="Self.fk_conexiones_usuarios" FromRole="conexiones" ToRole="usuarios" />
+        </EntityType>
+        <EntityType Name="marcas">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="web" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="logo" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="productos" Relationship="Self.fk_productos_marcas" FromRole="marcas" ToRole="productos" />
+        </EntityType>
+        <EntityType Name="multimedia">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="descripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="fichero" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="tipo" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="tiposMultimedia" Relationship="Self.fk_multimedia_tiposMultimedia" FromRole="multimedia" ToRole="tiposMultimedia" />
+          <NavigationProperty Name="productos_multimedia" Relationship="Self.fk_productos_multimedia_multimedia" FromRole="multimedia" ToRole="productos_multimedia" />
+        </EntityType>
+        <EntityType Name="paises">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="iso2" Type="String" MaxLength="2" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="iso3" Type="String" MaxLength="3" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="prefijo" Type="String" MaxLength="5" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="telefonos" Relationship="Self.fk_telefonos_paises" FromRole="paises" ToRole="telefonos" />
+          <NavigationProperty Name="usuarios" Relationship="Self.fk_usuarios_paises" FromRole="paises" ToRole="usuarios" />
+        </EntityType>
+        <EntityType Name="perfiles">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="descripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="usuarios" Relationship="Self.fk_usuarios_perfiles" FromRole="perfiles" ToRole="usuarios" />
+        </EntityType>
+        <EntityType Name="productos">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="descripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="marca" Type="Int32" />
+          <NavigationProperty Name="marcas" Relationship="Self.fk_productos_marcas" FromRole="productos" ToRole="marcas" />
+          <NavigationProperty Name="acciones" Relationship="Self.fk_acciones_producto" FromRole="productos" ToRole="acciones" />
+          <NavigationProperty Name="productos_caracteristicas" Relationship="Self.fk_productos_caracteristicas_productos" FromRole="productos" ToRole="productos_caracteristicas" />
+          <NavigationProperty Name="productos_categorias" Relationship="Self.fk_productos_categorias_productos" FromRole="productos" ToRole="productos_categorias" />
+          <NavigationProperty Name="productos_multimedia" Relationship="Self.fk_productos_multimedia_productos" FromRole="productos" ToRole="productos_multimedia" />
+          <NavigationProperty Name="productos_vendedores" Relationship="Self.fk_productos_vendedores_productos" FromRole="productos" ToRole="productos_vendedores" />
+          <NavigationProperty Name="valoracionesProducto" Relationship="Self.fk_valoracionesProducto_productos" FromRole="productos" ToRole="valoracionesProducto" />
+        </EntityType>
+        <EntityType Name="productos_caracteristicas">
+          <Key>
+            <PropertyRef Name="producto" />
+            <PropertyRef Name="caracteristica" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="producto" Type="Int32" Nullable="false" />
+          <Property Name="caracteristica" Type="Int32" Nullable="false" />
+          <Property Name="valor" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="referencia" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="caracteristicas" Relationship="Self.fk_productos_caracteristicas_caracteristitcas" FromRole="productos_caracteristicas" ToRole="caracteristicas" />
+          <NavigationProperty Name="productos" Relationship="Self.fk_productos_caracteristicas_productos" FromRole="productos_caracteristicas" ToRole="productos" />
+        </EntityType>
+        <EntityType Name="productos_categorias">
+          <Key>
+            <PropertyRef Name="producto" />
+            <PropertyRef Name="categoria" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="producto" Type="Int32" Nullable="false" />
+          <Property Name="categoria" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="categorias" Relationship="Self.fk_productos_categorias_categorias" FromRole="productos_categorias" ToRole="categorias" />
+          <NavigationProperty Name="productos" Relationship="Self.fk_productos_categorias_productos" FromRole="productos_categorias" ToRole="productos" />
+        </EntityType>
+        <EntityType Name="productos_multimedia">
+          <Key>
+            <PropertyRef Name="producto" />
+            <PropertyRef Name="multimedia" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="producto" Type="Int32" Nullable="false" />
+          <Property Name="multimedia" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="multimedia1" Relationship="Self.fk_productos_multimedia_multimedia" FromRole="productos_multimedia" ToRole="multimedia" />
+          <NavigationProperty Name="productos" Relationship="Self.fk_productos_multimedia_productos" FromRole="productos_multimedia" ToRole="productos" />
+        </EntityType>
+        <EntityType Name="productos_vendedores">
+          <Key>
+            <PropertyRef Name="producto" />
+            <PropertyRef Name="vendedor" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="producto" Type="Int32" Nullable="false" />
+          <Property Name="vendedor" Type="Int32" Nullable="false" />
+          <Property Name="precio" Type="Double" Nullable="false" />
+          <Property Name="enlaceCanonical" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="productos" Relationship="Self.fk_productos_vendedores_productos" FromRole="productos_vendedores" ToRole="productos" />
+          <NavigationProperty Name="vendedores" Relationship="Self.fk_productos_vendedores_vendedores" FromRole="productos_vendedores" ToRole="vendedores" />
+        </EntityType>
+        <EntityType Name="telefonos">
+          <Key>
+            <PropertyRef Name="usuario" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="usuario" Type="Int32" Nullable="false" />
+          <Property Name="pais" Type="Int32" Nullable="false" />
+          <Property Name="telefono" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="paises" Relationship="Self.fk_telefonos_paises" FromRole="telefonos" ToRole="paises" />
+          <NavigationProperty Name="usuarios" Relationship="Self.fk_telefonos_usuarios" FromRole="telefonos" ToRole="usuarios" />
+        </EntityType>
+        <EntityType Name="tiposAccion">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="nombre" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="descripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="acciones" Relationship="Self.fk_acciones_tipoAcciones" FromRole="tiposAccion" ToRole="acciones" />
+        </EntityType>
+        <EntityType Name="tiposMultimedia">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="formato" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="multimedia" Relationship="Self.fk_multimedia_tiposMultimedia" FromRole="tiposMultimedia" ToRole="multimedia" />
+        </EntityType>
+        <EntityType Name="usuarios">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="email" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="nombre" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="apellidos" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="constrasenya" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="perfil" Type="Int32" Nullable="false" />
+          <Property Name="paisOrigen" Type="Int32" />
+          <NavigationProperty Name="conexiones" Relationship="Self.fk_conexiones_usuarios" FromRole="usuarios" ToRole="conexiones" />
+          <NavigationProperty Name="paises" Relationship="Self.fk_usuarios_paises" FromRole="usuarios" ToRole="paises" />
+          <NavigationProperty Name="perfiles" Relationship="Self.fk_usuarios_perfiles" FromRole="usuarios" ToRole="perfiles" />
+          <NavigationProperty Name="telefonos" Relationship="Self.fk_telefonos_usuarios" FromRole="usuarios" ToRole="telefonos" />
+          <NavigationProperty Name="acciones" Relationship="Self.fk_acciones_usuarios" FromRole="usuarios" ToRole="acciones" />
+          <NavigationProperty Name="valoracionesProducto" Relationship="Self.fk_valoracionesProducto_usuarios" FromRole="usuarios" ToRole="valoracionesProducto" />
+          <NavigationProperty Name="valoracionesVendedor" Relationship="Self.fk_valoracionesVendedor_usuarios" FromRole="usuarios" ToRole="valoracionesVendedor" />
+        </EntityType>
+        <EntityType Name="valoracionesProducto">
+          <Key>
+            <PropertyRef Name="producto" />
+            <PropertyRef Name="usuario" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="producto" Type="Int32" Nullable="false" />
+          <Property Name="usuario" Type="Int32" Nullable="false" />
+          <Property Name="titulo" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="descripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="puntuacion" Type="Int32" />
+          <Property Name="validado" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="productos" Relationship="Self.fk_valoracionesProducto_productos" FromRole="valoracionesProducto" ToRole="productos" />
+          <NavigationProperty Name="usuarios" Relationship="Self.fk_valoracionesProducto_usuarios" FromRole="valoracionesProducto" ToRole="usuarios" />
+        </EntityType>
+        <EntityType Name="valoracionesVendedor">
+          <Key>
+            <PropertyRef Name="vendedor" />
+            <PropertyRef Name="usuario" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="vendedor" Type="Int32" Nullable="false" />
+          <Property Name="usuario" Type="Int32" Nullable="false" />
+          <Property Name="titulo" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="descripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="puntuacion" Type="Int32" />
+          <Property Name="validado" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="usuarios" Relationship="Self.fk_valoracionesVendedor_usuarios" FromRole="valoracionesVendedor" ToRole="usuarios" />
+          <NavigationProperty Name="vendedores" Relationship="Self.fk_valoracionesVendedor_vendedores" FromRole="valoracionesVendedor" ToRole="vendedores" />
+        </EntityType>
+        <EntityType Name="vendedores">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="descripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="logo" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="web" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="productos_vendedores" Relationship="Self.fk_productos_vendedores_vendedores" FromRole="vendedores" ToRole="productos_vendedores" />
+          <NavigationProperty Name="valoracionesVendedor" Relationship="Self.fk_valoracionesVendedor_vendedores" FromRole="vendedores" ToRole="valoracionesVendedor" />
+          <NavigationProperty Name="acciones" Relationship="Self.fk_acciones_vendedor" FromRole="vendedores" ToRole="acciones" />
+        </EntityType>
+        <EntityType Name="acciones">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="tipoAccion" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="tipoAccion" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="usuario" Type="Int32" />
+          <Property Name="producto" Type="Int32" />
+          <Property Name="vendedor" Type="Int32" />
+          <Property Name="informacion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="productos" Relationship="Self.fk_acciones_producto" FromRole="acciones" ToRole="productos" />
+          <NavigationProperty Name="tiposAccion" Relationship="Self.fk_acciones_tipoAcciones" FromRole="acciones" ToRole="tiposAccion" />
+          <NavigationProperty Name="usuarios" Relationship="Self.fk_acciones_usuarios" FromRole="acciones" ToRole="usuarios" />
+          <NavigationProperty Name="vendedores" Relationship="Self.fk_acciones_vendedor" FromRole="acciones" ToRole="vendedores" />
+        </EntityType>
+        <Association Name="fk_productos_caracteristicas_caracteristitcas">
+          <End Role="caracteristicas" Type="Self.caracteristicas" Multiplicity="1" />
+          <End Role="productos_caracteristicas" Type="Self.productos_caracteristicas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="caracteristicas">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="productos_caracteristicas">
+              <PropertyRef Name="caracteristica" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_categorias_categorias">
+          <End Role="categorias" Type="Self.categorias" Multiplicity="0..1" />
+          <End Role="categorias1" Type="Self.categorias" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="categorias">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="categorias1">
+              <PropertyRef Name="categoriaPadre" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_productos_categorias_categorias">
+          <End Role="categorias" Type="Self.categorias" Multiplicity="1" />
+          <End Role="productos_categorias" Type="Self.productos_categorias" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="categorias">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="productos_categorias">
+              <PropertyRef Name="categoria" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_conexiones_usuarios">
+          <End Role="usuarios" Type="Self.usuarios" Multiplicity="1" />
+          <End Role="conexiones" Type="Self.conexiones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="usuarios">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="conexiones">
+              <PropertyRef Name="usuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_productos_marcas">
+          <End Role="marcas" Type="Self.marcas" Multiplicity="0..1" />
+          <End Role="productos" Type="Self.productos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="marcas">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="productos">
+              <PropertyRef Name="marca" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_multimedia_tiposMultimedia">
+          <End Role="tiposMultimedia" Type="Self.tiposMultimedia" Multiplicity="1" />
+          <End Role="multimedia" Type="Self.multimedia" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tiposMultimedia">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="multimedia">
+              <PropertyRef Name="tipo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_productos_multimedia_multimedia">
+          <End Role="multimedia" Type="Self.multimedia" Multiplicity="1" />
+          <End Role="productos_multimedia" Type="Self.productos_multimedia" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="multimedia">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="productos_multimedia">
+              <PropertyRef Name="multimedia" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_telefonos_paises">
+          <End Role="paises" Type="Self.paises" Multiplicity="1" />
+          <End Role="telefonos" Type="Self.telefonos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="paises">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="telefonos">
+              <PropertyRef Name="pais" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_usuarios_paises">
+          <End Role="paises" Type="Self.paises" Multiplicity="0..1" />
+          <End Role="usuarios" Type="Self.usuarios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="paises">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="usuarios">
+              <PropertyRef Name="paisOrigen" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_usuarios_perfiles">
+          <End Role="perfiles" Type="Self.perfiles" Multiplicity="1" />
+          <End Role="usuarios" Type="Self.usuarios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="perfiles">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="usuarios">
+              <PropertyRef Name="perfil" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_acciones_producto">
+          <End Role="productos" Type="Self.productos" Multiplicity="0..1" />
+          <End Role="acciones" Type="Self.acciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="productos">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="acciones">
+              <PropertyRef Name="producto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_productos_caracteristicas_productos">
+          <End Role="productos" Type="Self.productos" Multiplicity="1" />
+          <End Role="productos_caracteristicas" Type="Self.productos_caracteristicas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="productos">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="productos_caracteristicas">
+              <PropertyRef Name="producto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_productos_categorias_productos">
+          <End Role="productos" Type="Self.productos" Multiplicity="1" />
+          <End Role="productos_categorias" Type="Self.productos_categorias" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="productos">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="productos_categorias">
+              <PropertyRef Name="producto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_productos_multimedia_productos">
+          <End Role="productos" Type="Self.productos" Multiplicity="1" />
+          <End Role="productos_multimedia" Type="Self.productos_multimedia" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="productos">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="productos_multimedia">
+              <PropertyRef Name="producto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_productos_vendedores_productos">
+          <End Role="productos" Type="Self.productos" Multiplicity="1" />
+          <End Role="productos_vendedores" Type="Self.productos_vendedores" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="productos">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="productos_vendedores">
+              <PropertyRef Name="producto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_valoracionesProducto_productos">
+          <End Role="productos" Type="Self.productos" Multiplicity="1" />
+          <End Role="valoracionesProducto" Type="Self.valoracionesProducto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="productos">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="valoracionesProducto">
+              <PropertyRef Name="producto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_productos_vendedores_vendedores">
+          <End Role="vendedores" Type="Self.vendedores" Multiplicity="1" />
+          <End Role="productos_vendedores" Type="Self.productos_vendedores" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="vendedores">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="productos_vendedores">
+              <PropertyRef Name="vendedor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_telefonos_usuarios">
+          <End Role="usuarios" Type="Self.usuarios" Multiplicity="1" />
+          <End Role="telefonos" Type="Self.telefonos" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="usuarios">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="telefonos">
+              <PropertyRef Name="usuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_acciones_tipoAcciones">
+          <End Role="tiposAccion" Type="Self.tiposAccion" Multiplicity="1" />
+          <End Role="acciones" Type="Self.acciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tiposAccion">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="acciones">
+              <PropertyRef Name="tipoAccion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_acciones_usuarios">
+          <End Role="usuarios" Type="Self.usuarios" Multiplicity="0..1" />
+          <End Role="acciones" Type="Self.acciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="usuarios">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="acciones">
+              <PropertyRef Name="usuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_valoracionesProducto_usuarios">
+          <End Role="usuarios" Type="Self.usuarios" Multiplicity="1" />
+          <End Role="valoracionesProducto" Type="Self.valoracionesProducto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="usuarios">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="valoracionesProducto">
+              <PropertyRef Name="usuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_valoracionesVendedor_usuarios">
+          <End Role="usuarios" Type="Self.usuarios" Multiplicity="1" />
+          <End Role="valoracionesVendedor" Type="Self.valoracionesVendedor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="usuarios">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="valoracionesVendedor">
+              <PropertyRef Name="usuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_valoracionesVendedor_vendedores">
+          <End Role="vendedores" Type="Self.vendedores" Multiplicity="1" />
+          <End Role="valoracionesVendedor" Type="Self.valoracionesVendedor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="vendedores">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="valoracionesVendedor">
+              <PropertyRef Name="vendedor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_acciones_vendedor">
+          <End Role="vendedores" Type="Self.vendedores" Multiplicity="0..1" />
+          <End Role="acciones" Type="Self.acciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="vendedores">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="acciones">
+              <PropertyRef Name="vendedor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="venta_onlineEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="caracteristicas" EntityType="Self.caracteristicas" />
+          <EntitySet Name="categorias" EntityType="Self.categorias" />
+          <EntitySet Name="conexiones" EntityType="Self.conexiones" />
+          <EntitySet Name="marcas" EntityType="Self.marcas" />
+          <EntitySet Name="multimedia" EntityType="Self.multimedia" />
+          <EntitySet Name="paises" EntityType="Self.paises" />
+          <EntitySet Name="perfiles" EntityType="Self.perfiles" />
+          <EntitySet Name="productos" EntityType="Self.productos" />
+          <EntitySet Name="productos_caracteristicas" EntityType="Self.productos_caracteristicas" />
+          <EntitySet Name="productos_categorias" EntityType="Self.productos_categorias" />
+          <EntitySet Name="productos_multimedia" EntityType="Self.productos_multimedia" />
+          <EntitySet Name="productos_vendedores" EntityType="Self.productos_vendedores" />
+          <EntitySet Name="telefonos" EntityType="Self.telefonos" />
+          <EntitySet Name="tiposAccion" EntityType="Self.tiposAccion" />
+          <EntitySet Name="tiposMultimedia" EntityType="Self.tiposMultimedia" />
+          <EntitySet Name="usuarios" EntityType="Self.usuarios" />
+          <EntitySet Name="valoracionesProducto" EntityType="Self.valoracionesProducto" />
+          <EntitySet Name="valoracionesVendedor" EntityType="Self.valoracionesVendedor" />
+          <EntitySet Name="vendedores" EntityType="Self.vendedores" />
+          <EntitySet Name="acciones" EntityType="Self.acciones" />
+          <AssociationSet Name="fk_productos_caracteristicas_caracteristitcas" Association="Self.fk_productos_caracteristicas_caracteristitcas">
+            <End Role="caracteristicas" EntitySet="caracteristicas" />
+            <End Role="productos_caracteristicas" EntitySet="productos_caracteristicas" />
+          </AssociationSet>
+          <AssociationSet Name="fk_categorias_categorias" Association="Self.fk_categorias_categorias">
+            <End Role="categorias" EntitySet="categorias" />
+            <End Role="categorias1" EntitySet="categorias" />
+          </AssociationSet>
+          <AssociationSet Name="fk_productos_categorias_categorias" Association="Self.fk_productos_categorias_categorias">
+            <End Role="categorias" EntitySet="categorias" />
+            <End Role="productos_categorias" EntitySet="productos_categorias" />
+          </AssociationSet>
+          <AssociationSet Name="fk_conexiones_usuarios" Association="Self.fk_conexiones_usuarios">
+            <End Role="usuarios" EntitySet="usuarios" />
+            <End Role="conexiones" EntitySet="conexiones" />
+          </AssociationSet>
+          <AssociationSet Name="fk_productos_marcas" Association="Self.fk_productos_marcas">
+            <End Role="marcas" EntitySet="marcas" />
+            <End Role="productos" EntitySet="productos" />
+          </AssociationSet>
+          <AssociationSet Name="fk_multimedia_tiposMultimedia" Association="Self.fk_multimedia_tiposMultimedia">
+            <End Role="tiposMultimedia" EntitySet="tiposMultimedia" />
+            <End Role="multimedia" EntitySet="multimedia" />
+          </AssociationSet>
+          <AssociationSet Name="fk_productos_multimedia_multimedia" Association="Self.fk_productos_multimedia_multimedia">
+            <End Role="multimedia" EntitySet="multimedia" />
+            <End Role="productos_multimedia" EntitySet="productos_multimedia" />
+          </AssociationSet>
+          <AssociationSet Name="fk_telefonos_paises" Association="Self.fk_telefonos_paises">
+            <End Role="paises" EntitySet="paises" />
+            <End Role="telefonos" EntitySet="telefonos" />
+          </AssociationSet>
+          <AssociationSet Name="fk_usuarios_paises" Association="Self.fk_usuarios_paises">
+            <End Role="paises" EntitySet="paises" />
+            <End Role="usuarios" EntitySet="usuarios" />
+          </AssociationSet>
+          <AssociationSet Name="fk_usuarios_perfiles" Association="Self.fk_usuarios_perfiles">
+            <End Role="perfiles" EntitySet="perfiles" />
+            <End Role="usuarios" EntitySet="usuarios" />
+          </AssociationSet>
+          <AssociationSet Name="fk_acciones_producto" Association="Self.fk_acciones_producto">
+            <End Role="productos" EntitySet="productos" />
+            <End Role="acciones" EntitySet="acciones" />
+          </AssociationSet>
+          <AssociationSet Name="fk_productos_caracteristicas_productos" Association="Self.fk_productos_caracteristicas_productos">
+            <End Role="productos" EntitySet="productos" />
+            <End Role="productos_caracteristicas" EntitySet="productos_caracteristicas" />
+          </AssociationSet>
+          <AssociationSet Name="fk_productos_categorias_productos" Association="Self.fk_productos_categorias_productos">
+            <End Role="productos" EntitySet="productos" />
+            <End Role="productos_categorias" EntitySet="productos_categorias" />
+          </AssociationSet>
+          <AssociationSet Name="fk_productos_multimedia_productos" Association="Self.fk_productos_multimedia_productos">
+            <End Role="productos" EntitySet="productos" />
+            <End Role="productos_multimedia" EntitySet="productos_multimedia" />
+          </AssociationSet>
+          <AssociationSet Name="fk_productos_vendedores_productos" Association="Self.fk_productos_vendedores_productos">
+            <End Role="productos" EntitySet="productos" />
+            <End Role="productos_vendedores" EntitySet="productos_vendedores" />
+          </AssociationSet>
+          <AssociationSet Name="fk_valoracionesProducto_productos" Association="Self.fk_valoracionesProducto_productos">
+            <End Role="productos" EntitySet="productos" />
+            <End Role="valoracionesProducto" EntitySet="valoracionesProducto" />
+          </AssociationSet>
+          <AssociationSet Name="fk_productos_vendedores_vendedores" Association="Self.fk_productos_vendedores_vendedores">
+            <End Role="vendedores" EntitySet="vendedores" />
+            <End Role="productos_vendedores" EntitySet="productos_vendedores" />
+          </AssociationSet>
+          <AssociationSet Name="fk_telefonos_usuarios" Association="Self.fk_telefonos_usuarios">
+            <End Role="usuarios" EntitySet="usuarios" />
+            <End Role="telefonos" EntitySet="telefonos" />
+          </AssociationSet>
+          <AssociationSet Name="fk_acciones_tipoAcciones" Association="Self.fk_acciones_tipoAcciones">
+            <End Role="tiposAccion" EntitySet="tiposAccion" />
+            <End Role="acciones" EntitySet="acciones" />
+          </AssociationSet>
+          <AssociationSet Name="fk_acciones_usuarios" Association="Self.fk_acciones_usuarios">
+            <End Role="usuarios" EntitySet="usuarios" />
+            <End Role="acciones" EntitySet="acciones" />
+          </AssociationSet>
+          <AssociationSet Name="fk_valoracionesProducto_usuarios" Association="Self.fk_valoracionesProducto_usuarios">
+            <End Role="usuarios" EntitySet="usuarios" />
+            <End Role="valoracionesProducto" EntitySet="valoracionesProducto" />
+          </AssociationSet>
+          <AssociationSet Name="fk_valoracionesVendedor_usuarios" Association="Self.fk_valoracionesVendedor_usuarios">
+            <End Role="usuarios" EntitySet="usuarios" />
+            <End Role="valoracionesVendedor" EntitySet="valoracionesVendedor" />
+          </AssociationSet>
+          <AssociationSet Name="fk_valoracionesVendedor_vendedores" Association="Self.fk_valoracionesVendedor_vendedores">
+            <End Role="vendedores" EntitySet="vendedores" />
+            <End Role="valoracionesVendedor" EntitySet="valoracionesVendedor" />
+          </AssociationSet>
+          <AssociationSet Name="fk_acciones_vendedor" Association="Self.fk_acciones_vendedor">
+            <End Role="vendedores" EntitySet="vendedores" />
+            <End Role="acciones" EntitySet="acciones" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="venta_onlineModelStoreContainer" CdmEntityContainer="venta_onlineEntities">
+          <EntitySetMapping Name="caracteristicas">
+            <EntityTypeMapping TypeName="venta_onlineModel.caracteristicas">
+              <MappingFragment StoreEntitySet="caracteristicas">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="categorias">
+            <EntityTypeMapping TypeName="venta_onlineModel.categorias">
+              <MappingFragment StoreEntitySet="categorias">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+                <ScalarProperty Name="categoriaPadre" ColumnName="categoriaPadre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="conexiones">
+            <EntityTypeMapping TypeName="venta_onlineModel.conexiones">
+              <MappingFragment StoreEntitySet="conexiones">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="usuario" ColumnName="usuario" />
+                <ScalarProperty Name="dispositivo" ColumnName="dispositivo" />
+                <ScalarProperty Name="sistema" ColumnName="sistema" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="fecha" ColumnName="fecha" />
+                <ScalarProperty Name="activa" ColumnName="activa" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="marcas">
+            <EntityTypeMapping TypeName="venta_onlineModel.marcas">
+              <MappingFragment StoreEntitySet="marcas">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="web" ColumnName="web" />
+                <ScalarProperty Name="logo" ColumnName="logo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="multimedia">
+            <EntityTypeMapping TypeName="venta_onlineModel.multimedia">
+              <MappingFragment StoreEntitySet="multimedia">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+                <ScalarProperty Name="fichero" ColumnName="fichero" />
+                <ScalarProperty Name="tipo" ColumnName="tipo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="paises">
+            <EntityTypeMapping TypeName="venta_onlineModel.paises">
+              <MappingFragment StoreEntitySet="paises">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="iso2" ColumnName="iso2" />
+                <ScalarProperty Name="iso3" ColumnName="iso3" />
+                <ScalarProperty Name="prefijo" ColumnName="prefijo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="perfiles">
+            <EntityTypeMapping TypeName="venta_onlineModel.perfiles">
+              <MappingFragment StoreEntitySet="perfiles">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="productos">
+            <EntityTypeMapping TypeName="venta_onlineModel.productos">
+              <MappingFragment StoreEntitySet="productos">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+                <ScalarProperty Name="marca" ColumnName="marca" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="productos_caracteristicas">
+            <EntityTypeMapping TypeName="venta_onlineModel.productos_caracteristicas">
+              <MappingFragment StoreEntitySet="productos_caracteristicas">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="producto" ColumnName="producto" />
+                <ScalarProperty Name="caracteristica" ColumnName="caracteristica" />
+                <ScalarProperty Name="valor" ColumnName="valor" />
+                <ScalarProperty Name="referencia" ColumnName="referencia" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="productos_categorias">
+            <EntityTypeMapping TypeName="venta_onlineModel.productos_categorias">
+              <MappingFragment StoreEntitySet="productos_categorias">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="producto" ColumnName="producto" />
+                <ScalarProperty Name="categoria" ColumnName="categoria" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="productos_multimedia">
+            <EntityTypeMapping TypeName="venta_onlineModel.productos_multimedia">
+              <MappingFragment StoreEntitySet="productos_multimedia">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="producto" ColumnName="producto" />
+                <ScalarProperty Name="multimedia" ColumnName="multimedia" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="productos_vendedores">
+            <EntityTypeMapping TypeName="venta_onlineModel.productos_vendedores">
+              <MappingFragment StoreEntitySet="productos_vendedores">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="producto" ColumnName="producto" />
+                <ScalarProperty Name="vendedor" ColumnName="vendedor" />
+                <ScalarProperty Name="precio" ColumnName="precio" />
+                <ScalarProperty Name="enlaceCanonical" ColumnName="enlaceCanonical" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="telefonos">
+            <EntityTypeMapping TypeName="venta_onlineModel.telefonos">
+              <MappingFragment StoreEntitySet="telefonos">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="usuario" ColumnName="usuario" />
+                <ScalarProperty Name="pais" ColumnName="pais" />
+                <ScalarProperty Name="telefono" ColumnName="telefono" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tiposAccion">
+            <EntityTypeMapping TypeName="venta_onlineModel.tiposAccion">
+              <MappingFragment StoreEntitySet="tiposAccion">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tiposMultimedia">
+            <EntityTypeMapping TypeName="venta_onlineModel.tiposMultimedia">
+              <MappingFragment StoreEntitySet="tiposMultimedia">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="formato" ColumnName="formato" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="usuarios">
+            <EntityTypeMapping TypeName="venta_onlineModel.usuarios">
+              <MappingFragment StoreEntitySet="usuarios">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="apellidos" ColumnName="apellidos" />
+                <ScalarProperty Name="constrasenya" ColumnName="constrasenya" />
+                <ScalarProperty Name="perfil" ColumnName="perfil" />
+                <ScalarProperty Name="paisOrigen" ColumnName="paisOrigen" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="valoracionesProducto">
+            <EntityTypeMapping TypeName="venta_onlineModel.valoracionesProducto">
+              <MappingFragment StoreEntitySet="valoracionesProducto">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="producto" ColumnName="producto" />
+                <ScalarProperty Name="usuario" ColumnName="usuario" />
+                <ScalarProperty Name="titulo" ColumnName="titulo" />
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+                <ScalarProperty Name="puntuacion" ColumnName="puntuacion" />
+                <ScalarProperty Name="validado" ColumnName="validado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="valoracionesVendedor">
+            <EntityTypeMapping TypeName="venta_onlineModel.valoracionesVendedor">
+              <MappingFragment StoreEntitySet="valoracionesVendedor">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="vendedor" ColumnName="vendedor" />
+                <ScalarProperty Name="usuario" ColumnName="usuario" />
+                <ScalarProperty Name="titulo" ColumnName="titulo" />
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+                <ScalarProperty Name="puntuacion" ColumnName="puntuacion" />
+                <ScalarProperty Name="validado" ColumnName="validado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vendedores">
+            <EntityTypeMapping TypeName="venta_onlineModel.vendedores">
+              <MappingFragment StoreEntitySet="vendedores">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+                <ScalarProperty Name="logo" ColumnName="logo" />
+                <ScalarProperty Name="web" ColumnName="web" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="acciones">
+            <EntityTypeMapping TypeName="venta_onlineModel.acciones">
+              <MappingFragment StoreEntitySet="acciones">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="tipoAccion" ColumnName="tipoAccion" />
+                <ScalarProperty Name="usuario" ColumnName="usuario" />
+                <ScalarProperty Name="producto" ColumnName="producto" />
+                <ScalarProperty Name="vendedor" ColumnName="vendedor" />
+                <ScalarProperty Name="informacion" ColumnName="informacion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

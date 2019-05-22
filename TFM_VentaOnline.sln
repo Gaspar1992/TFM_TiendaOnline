@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.421
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TFM_VentaOnline", "TFM_VentaOnline\TFM_VentaOnline.csproj", "{46403A08-42DF-4D5A-9522-1F7508FD78F1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TFM_VentaOnline.Tests", "TFM_VentaOnline.Tests\TFM_VentaOnline.Tests.csproj", "{5BCA9195-7B26-489B-A09C-D0DEF45FB654}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{46403A08-42DF-4D5A-9522-1F7508FD78F1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{46403A08-42DF-4D5A-9522-1F7508FD78F1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{46403A08-42DF-4D5A-9522-1F7508FD78F1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{46403A08-42DF-4D5A-9522-1F7508FD78F1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5BCA9195-7B26-489B-A09C-D0DEF45FB654}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5BCA9195-7B26-489B-A09C-D0DEF45FB654}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5BCA9195-7B26-489B-A09C-D0DEF45FB654}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5BCA9195-7B26-489B-A09C-D0DEF45FB654}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {8300EADC-883D-4D16-BD4D-6DEA7ED36F70}
+	EndGlobalSection
+EndGlobal
